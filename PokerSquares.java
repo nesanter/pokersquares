@@ -109,26 +109,25 @@ public class PokerSquares {
         while (cardsPlaced < SIZE * SIZE) {
             /* deal the next card */
             Card card = deck.pop();
-            System.out.printf("Next card is %s\n", card);
+            PokerSquaresView.displayNextCard(card);
 
             long startTime = System.currentTimeMillis();
             int[] play = player.getPlay(card, millisRemaining);
             millisRemaining -= System.currentTimeMillis() - startTime;
             if (millisRemaining < 0) { // times out
-                System.err.println("Player Out of Time");
+                PokerSquaresView.displayOutOfTime();
                 return 0;
             }
             if (play.length != 2 || play[0] < 0 || play[0] >= SIZE
                     || play[1] < 0 || play[1] >= SIZE
                     || grid[play[0]][play[1]] != null) { // illegal play
-                System.err.printf("Illegal play: %s\n", Arrays.toString(play));
+                PokerSquaresView.displayIllegalMove();
                 return 0;
                     }
             grid[play[0]][play[1]] = card;
             cardsPlaced++;
             if (verbose) {
-                printGrid(grid, cardsPlaced);
-                System.out.println();
+                PokerSquaresView.updateDisplay();
             }
         }
         return getScore(grid);
@@ -168,9 +167,55 @@ public class PokerSquares {
     }
 
     /**
+     * Get the current grid
+     */
+
+    public static Card[][] getGrid() {
+        return grid;
+    }
+
+    /**
+     * Get the current total score
+     */
+
+    public static int getTotalScore() {
+        int[] handscores = getHandScores(grid);
+        int totalScore = 0;
+        for (int score : handScores) {
+            totalScore += handScore;
+        }
+
+        return totalScore;
+    }
+
+    /**
+     * Get the hand score for row
+     */
+
+    public static int getScoreByRow(int row) {
+        return getHandScores(grid)[row];
+    }
+
+    /**
+     * Get the hand score for col
+     */
+    public static int getScoreByCol(int col) {
+        return getHandScores(grid)[SIZE + col];
+    }
+
+    /**
+     * Get the size of the field
+     */
+
+    public static int getSize() {
+        return SIZE;
+    }
+
+    /**
      * Print the current game grid and score.
      * @param grid current game grid 
      */
+    /*
     public static void printGrid(Card[][] grid, int cards) {
         // get scores
         int[] handScores = getHandScores(grid);
@@ -193,6 +238,7 @@ public class PokerSquares {
             System.out.printf("%3d ", handScores[SIZE + col]);
         System.out.printf("%3d Total\n", totalScore);
     }
+    */
 
     /**
      * Get the score of the given Card grid.
