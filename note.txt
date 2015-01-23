@@ -1,0 +1,4 @@
+Note:
+The PokerSquaresPlayer class is considered the abstract 'controller' in this case.
+Other classes like the view interface and the model have been explicitly named so,
+but just to be clear ;)
