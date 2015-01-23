@@ -7,10 +7,15 @@
 import java.util.Arrays;
 
 public class PokerSquaresViewText implements PokerSquaresView {
-    private PokerSquares pokerSquares;
+    private PokerSquaresModel model;
 
-    public PokerSquaresViewText(PokerSquares ps) {
-        this.pokerSquares = ps;
+    public PokerSquaresViewText() {
+    }
+
+    @Override
+    public void GiveModelReference( PokerSquaresModel model )
+    {
+        this.model = model;
     }
 
     @Override
@@ -20,21 +25,21 @@ public class PokerSquaresViewText implements PokerSquaresView {
 
     @Override
     public void updateDisplay() {
-        Card[][] grid = pokerSquares.getGrid();
+        Card[][] grid = model.getGrid();
 
         // print grid
-        for (int row = 0; row < pokerSquares.getSize(); row++) {
-            for (int col = 0; col < pokerSquares.getSize(); col++) {
+        for (int row = 0; row < model.getSize(); row++) {
+            for (int col = 0; col < model.getSize(); col++) {
                 System.out.printf(" %s ",
                         grid[row][col] == null ? "--" : grid[row][col].toString());
             }
-            System.out.printf("%3d\n", pokerSquares.getScoreByRow(row));
+            System.out.printf("%3d\n", model.getScoreByRow(row));
         }
 
-        for (int col = 0; col < pokerSquares.getSize(); col++) 
-            System.out.printf("%3d ", pokerSquares.getScoreByCol(col));
+        for (int col = 0; col < model.getSize(); col++) 
+            System.out.printf("%3d ", model.getScoreByCol(col));
 
-        System.out.printf("%3d Total\n", pokerSquares.getTotalScore());
+        System.out.printf("%3d Total\n", model.getTotalScore());
 
         System.out.println();
     }

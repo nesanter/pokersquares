@@ -6,7 +6,7 @@
  */
 public class FlushPokerSquaresPlayer implements PokerSquaresPlayer {
 
-    private final int SIZE = PokerSquares.SIZE;
+    private final int SIZE = PokerSquaresModel.SIZE;
     private Card[][] grid = new Card[SIZE][SIZE];
     private int[] numColCards = new int[SIZE];
 
@@ -38,9 +38,5 @@ public class FlushPokerSquaresPlayer implements PokerSquaresPlayer {
         playPos[1] = col;
         grid[playPos[0]][playPos[1]] = card;
         return playPos;
-    }
-
-    public static void main(String[] args) {
-        new PokerSquares(new FlushPokerSquaresPlayer(), 60000L).play();
     }
 }

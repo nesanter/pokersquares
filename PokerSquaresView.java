@@ -18,4 +18,5 @@ public interface PokerSquaresView {
     void displayLoss();
     void displayIllegalMove(int[] play);
     void displayNextCard(Card card);
+    void GiveModelReference( PokerSquaresModel model );
 }

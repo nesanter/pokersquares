@@ -25,10 +25,4 @@ public class RandomPokerSquaresPlayer implements PokerSquaresPlayer {
         int[] playPos = {play / 5, play % 5}; // decode it into row and column
         return playPos; // return it
     }
-
-    public static void main(String[] args) {
-        // play a single game
-        new PokerSquares(new RandomPokerSquaresPlayer(), 60000L).play();
-    }
-
 }
