@@ -12,9 +12,10 @@ public interface PokerSquaresView {
     // this checks the model and gets reference to cards array
     // displays that array somehow
     //
-    static void displayTimeOut();
-    static void updateDisplay();
-    static void displayWin();
-    static void displayLoss();
-    static void displayOutOfTime();
+    void displayOutOfTime();
+    void updateDisplay();
+    void displayWin();
+    void displayLoss();
+    void displayIllegalMove(int[] play);
+    void displayNextCard(Card card);
 }

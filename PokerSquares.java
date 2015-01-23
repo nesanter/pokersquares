@@ -62,6 +62,8 @@ that will be useful for coding good players.
 
 public class PokerSquares {
 
+    private PokerSquaresView view;
+
     public static final int SIZE = 5; // square grid size
     // 2013 contest maximum milliseconds per game
     public static final long GAME_MILLIS = 60000L;
@@ -110,25 +112,25 @@ public class PokerSquares {
         while (cardsPlaced < SIZE * SIZE) {
             /* deal the next card */
             Card card = deck.pop();
-            PokerSquaresView.displayNextCard(card);
+            view.displayNextCard(card);
 
             long startTime = System.currentTimeMillis();
             int[] play = player.getPlay(card, millisRemaining);
             millisRemaining -= System.currentTimeMillis() - startTime;
             if (millisRemaining < 0) { // times out
-                PokerSquaresView.displayOutOfTime();
+                view.displayOutOfTime();
                 return 0;
             }
             if (play.length != 2 || play[0] < 0 || play[0] >= SIZE
                     || play[1] < 0 || play[1] >= SIZE
                     || grid[play[0]][play[1]] != null) { // illegal play
-                PokerSquaresView.displayIllegalMove();
+                view.displayIllegalMove(play);
                 return 0;
                     }
             grid[play[0]][play[1]] = card;
             cardsPlaced++;
             if (verbose) {
-                PokerSquaresView.updateDisplay();
+                view.updateDisplay();
             }
         }
         return getScore(grid);
@@ -171,7 +173,7 @@ public class PokerSquares {
      * Get the current grid
      */
 
-    public static Card[][] getGrid() {
+    public Card[][] getGrid() {
         return grid;
     }
 
@@ -179,11 +181,11 @@ public class PokerSquares {
      * Get the current total score
      */
 
-    public static int getTotalScore() {
-        int[] handscores = getHandScores(grid);
+    public int getTotalScore() {
+        int[] handScores = getHandScores(grid);
         int totalScore = 0;
         for (int score : handScores) {
-            totalScore += handScore;
+            totalScore += score;
         }
 
         return totalScore;
@@ -193,14 +195,14 @@ public class PokerSquares {
      * Get the hand score for row
      */
 
-    public static int getScoreByRow(int row) {
+    public int getScoreByRow(int row) {
         return getHandScores(grid)[row];
     }
 
     /**
      * Get the hand score for col
      */
-    public static int getScoreByCol(int col) {
+    public int getScoreByCol(int col) {
         return getHandScores(grid)[SIZE + col];
     }
 
@@ -208,7 +210,7 @@ public class PokerSquares {
      * Get the size of the field
      */
 
-    public static int getSize() {
+    public int getSize() {
         return SIZE;
     }
 
@@ -246,7 +248,7 @@ public class PokerSquares {
      * @param grid Card grid
      * @return score of given Card grid
      */
-    public static int getScore(Card[][] grid) {
+    public int getScore(Card[][] grid) {
         int[] handScores = getHandScores(grid);
         int totalScore = 0;
         for (int handScore : handScores)
@@ -261,7 +263,7 @@ public class PokerSquares {
      * @return an int array with the individual hand scores
      * of rows 0 through 4 followed by columns 0 through 4. 
      */
-    public static int[] getHandScores(Card[][] grid) {
+    public int[] getHandScores(Card[][] grid) {
         int[] handScores = new int[2 * SIZE];
         for (int row = 0; row < SIZE; row++) {
             Card[] hand = new Card[SIZE];
@@ -283,7 +285,7 @@ public class PokerSquares {
      * @param hand Card hand
      * @return score of given Card hand.
      */
-    public static int getHandScore(Card[] hand) {
+    public int getHandScore(Card[] hand) {
         // Compute counts
         int[] rankCounts = new int[Card.NUM_RANKS];
         int[] suitCounts = new int[Card.NUM_SUITS];
@@ -364,7 +366,7 @@ public class PokerSquares {
     /**
      * Test the correctness of scoring code. 
      */
-    public static void scoreTest() {
+    public void scoreTest() {
         // Wikipedia example
         String[][] testGrid = {{"AH", "AD", "JS", "JC", "JH"},
             {"9H", "7D", "9S", "9C", "7H"},
@@ -383,7 +385,7 @@ public class PokerSquares {
         for (int row = 0; row < SIZE; row++)
             for (int col = 0; col < SIZE; col++)
                 grid[row][col] = Card.cardMap.get(testGrid[row][col]);
-        PokerSquaresView.updateDisplay();
+        view.updateDisplay();
     }
 
     /**
@@ -399,15 +401,21 @@ public class PokerSquares {
         System.out.println( "    1 - Random Player" );
         System.out.println( "    2 - Flush Player" );
 
+        PokerSquares ps;
+
         switch( s.nextInt() )
         {
             case 0:
                 break;
             case 1:
-                new PokerSquares(new RandomPokerSquaresPlayer(), GAME_MILLIS).playSequence(5, 0, false);
+                ps = new PokerSquares(new RandomPokerSquaresPlayer(), GAME_MILLIS);
+                ps.view = new PokerSquaresViewText(ps);
+                ps.playSequence(5, 0, false);
                 break;
             case 2:
-                new PokerSquares(new FlushPokerSquaresPlayer(), GAME_MILLIS).playSequence(5, 0, false);
+                ps = new PokerSquares(new FlushPokerSquaresPlayer(), GAME_MILLIS);
+                ps.view = new PokerSquaresViewText(ps);
+                ps.playSequence(5, 0, false);
                 break;
             default:
                 System.out.println( "That's not a vaild player choice!" );

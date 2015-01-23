@@ -4,49 +4,58 @@
  * Authors: Noah Santer (nesanter@knox.edu), Sam Hart (swhart@knox.edu)
  */
 
+import java.util.Arrays;
+
 public class PokerSquaresViewText implements PokerSquaresView {
-    /**
-     * Inform a player that he is out of time
-     */
-    //
-    // this checks the model and gets reference to cards array
-    // displays that array somehow
-    //
-    static void displayTimeOut() {
+    private PokerSquares pokerSquares;
+
+    public PokerSquaresViewText(PokerSquares ps) {
+        this.pokerSquares = ps;
+    }
+
+    @Override
+    public void displayOutOfTime() {
         System.err.println("Player Out of Time");
     }
 
-    static void updateDisplay() {
-        Card[][] grid = PokerSqaures.getGrid();
+    @Override
+    public void updateDisplay() {
+        Card[][] grid = pokerSquares.getGrid();
 
         // print grid
-        for (int row = 0; row < PokerSquares.getSize(); row++) {
-            for (int col = 0; col < PokerSquares.getSize(); col++) {
+        for (int row = 0; row < pokerSquares.getSize(); row++) {
+            for (int col = 0; col < pokerSquares.getSize(); col++) {
                 System.out.printf(" %s ",
                         grid[row][col] == null ? "--" : grid[row][col].toString());
             }
-            System.out.printf("%3d\n", PokerSquares.getScoreByRow(row));
+            System.out.printf("%3d\n", pokerSquares.getScoreByRow(row));
         }
 
-        for (int col = 0; col < Controller.getSize(); col++) 
-            System.out.printf("%3d ", PokerSquares.getScoreByCol(col));
+        for (int col = 0; col < pokerSquares.getSize(); col++) 
+            System.out.printf("%3d ", pokerSquares.getScoreByCol(col));
 
-        System.out.printf("%3d Total\n", Controller.getTotalScore());
+        System.out.printf("%3d Total\n", pokerSquares.getTotalScore());
 
         System.out.println();
     }
 
-    static void displayIllegalMove() {
+    @Override
+    public void displayIllegalMove(int[] play) {
         System.err.printf("Illegal play: %s\n", Arrays.toString(play));
     }
-    static void displayWin() {
+
+    @Override
+    public void displayWin() {
         
     }
-    static void displayLoss() {
+
+    @Override
+    public void displayLoss() {
 
     }
 
-    static void displayCard() {
+    @Override
+    public void displayNextCard(Card card) {
         System.out.printf("Next card is %s\n", card);
     }
 }
