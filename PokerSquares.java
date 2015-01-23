@@ -393,4 +393,29 @@ public class PokerSquares {
         //new PokerSquares(new RandomPokerSquaresPlayer(), GAME_MILLIS).playSequence(10000, 0, false);
         //new PokerSquares(new SimplePokerSquaresPlayer(), GAME_MILLIS).playSequence(100, 0, false);
     }
+    public static void main(String[] args) {
+
+        Scanner s = new Scanner( System.in );
+        System.out.println( "Welcome to poker squares!" );
+        System.out.println( "  Pick a player to use:" );
+        System.out.println( "    0 - Exit" );
+        System.out.println( "    1 - Random Player" );
+        System.out.println( "    2 - Flush Player" );
+
+        switch( s.nextInt() )
+        {
+            case 0:
+                break;
+            case 1:
+                new PokerSquares(new RandomPokerSquaresPlayer(), GAME_MILLIS).playSequence(5, 0, false);
+                break;
+            case 2:
+                new PokerSquares(new FlushPokerSquaresPlayer(), GAME_MILLIS).playSequence(5, 0, false);
+                break;
+            default:
+                System.out.println( "That's not a vaild player choice!" );
+                break;
+        }
+    }
 }
+
