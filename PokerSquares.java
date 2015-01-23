@@ -383,17 +383,13 @@ public class PokerSquares {
         for (int row = 0; row < SIZE; row++)
             for (int col = 0; col < SIZE; col++)
                 grid[row][col] = Card.cardMap.get(testGrid[row][col]);
-        printGrid(grid,25);
+        PokerSquaresView.updateDisplay();
     }
 
     /**
      * Demonstrate testing of a PokerSquaresPlayer.
      * @param args
      */
-    public static void main(String[] args) {
-        //new PokerSquares(new RandomPokerSquaresPlayer(), GAME_MILLIS).playSequence(10000, 0, false);
-        //new PokerSquares(new SimplePokerSquaresPlayer(), GAME_MILLIS).playSequence(100, 0, false);
-    }
     public static void main(String[] args) {
 
         Scanner s = new Scanner( System.in );
