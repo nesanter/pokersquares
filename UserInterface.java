@@ -14,20 +14,17 @@ import javax.swing.border.*;
 public class UserInterface
     implements ActionListener
 {
-        private CalcEngine calc;
         private boolean showingAuthor;
         
         private JFrame frame;
-        private JTextField display;
-        private JLabel status;
+//        private JTextField display;
+//        private JLabel status;
         
         /**
          * Create a user interface for a given calcEngine.
          */
-        public UserInterface( CalcEngine engine )
+        public UserInterface()
         {
-            calc = engine;
-            showingAuthor = true;
             makeFrame();
             frame.setVisible( true );
         }
@@ -46,40 +43,31 @@ public class UserInterface
          */
         private void makeFrame()
         {
-            frame = new JFrame( calc.getTitle() );
+            frame = new JFrame( "Poker Squares" );
             
             JPanel contentPane = ( JPanel )frame.getContentPane();
             contentPane.setLayout( new BorderLayout( 8, 8 ) );
             contentPane.setBorder( new EmptyBorder( 10, 10, 10, 10 ) );
             
-            display = new JTextField();
-            contentPane.add( display, BorderLayout.NORTH );
+            JPanel cardPanel = new JPanel( new GridLayout( 5, 5 ) );
+
+            // did two loops just because
+            for( int i = 0; i < 5; i++ )
+            {
+                for( int j = 0; j < 5; j++ )
+                {
+                    cardPanel.add( new JPanel() );
+                }
+            }
             
-            JPanel buttonPanel = new JPanel( new GridLayout( 4, 4 ) );
-            addButton( buttonPanel, "7" );
-            addButton( buttonPanel, "8" );
-            addButton( buttonPanel, "9" );
-            addButton( buttonPanel, "C" );
+            contentPane.add( cardPanel, BorderLayout.CENTER );
+
+            JPanel buttonPanel = new JPanel( new GridLayout( 5, 1 ) );
+
+            contentPane.add( buttonPanel, BorderLayout.SOUTH );
             
-            addButton( buttonPanel, "4" );
-            addButton( buttonPanel, "5" );
-            addButton( buttonPanel, "6" );
-            addButton( buttonPanel, "?" );
-            
-            addButton( buttonPanel, "1" );
-            addButton( buttonPanel, "2" );
-            addButton( buttonPanel, "3" );
-            buttonPanel.add( new JLabel( " " ) );
-            
-            addButton( buttonPanel, "0" );
-            addButton( buttonPanel, "+" );
-            addButton( buttonPanel, "-" );
-            addButton( buttonPanel, "=" );
-            
-            contentPane.add( buttonPanel, BorderLayout.CENTER );
-            
-            status = new JLabel( calc.getAuthor() );
-            contentPane.add( status, BorderLayout.SOUTH );
+//            status = new JLabel( calc.getAuthor() );
+//            contentPane.add( status, BorderLayout.SOUTH );
             
             frame.pack();
         }
@@ -100,44 +88,44 @@ public class UserInterface
          */
         public void actionPerformed( ActionEvent event )
         {
-            String command = event.getActionCommand();
-            
-            if( command.equals( "0" ) ||
-                command.equals( "1" ) ||
-                command.equals( "2" ) ||
-                command.equals( "3" ) ||
-                command.equals( "4" ) ||
-                command.equals( "5" ) ||
-                command.equals( "6" ) ||
-                command.equals( "7" ) ||
-                command.equals( "8" ) ||
-                command.equals( "9" ) )
-            {
-                int number = Integer.parseInt( command );
-                calc.numberPressed( number );
-            }
-            else if( command.equals( "+" ) )
-            {
-                calc.plus();
-            }
-            else if( command.equals( "-" ) )
-            {
-                calc.minus();
-            }
-            else if( command.equals( "=" ) )
-            {
-                calc.equals();
-            }
-            else if( command.equals( "C" ) )
-            {
-                calc.clear();
-            }
-            else if( command.equals( "?" ) )
-            {
-                showInfo();
-            }
-            
-            redisplay();
+//            String command = event.getActionCommand();
+//            
+//            if( command.equals( "0" ) ||
+//                command.equals( "1" ) ||
+//                command.equals( "2" ) ||
+//                command.equals( "3" ) ||
+//                command.equals( "4" ) ||
+//                command.equals( "5" ) ||
+//                command.equals( "6" ) ||
+//                command.equals( "7" ) ||
+//                command.equals( "8" ) ||
+//                command.equals( "9" ) )
+//            {
+//                int number = Integer.parseInt( command );
+//                calc.numberPressed( number );
+//            }
+//            else if( command.equals( "+" ) )
+//            {
+//                calc.plus();
+//            }
+//            else if( command.equals( "-" ) )
+//            {
+//                calc.minus();
+//            }
+//            else if( command.equals( "=" ) )
+//            {
+//                calc.equals();
+//            }
+//            else if( command.equals( "C" ) )
+//            {
+//                calc.clear();
+//            }
+//            else if( command.equals( "?" ) )
+//            {
+//                showInfo();
+//            }
+//            
+//            redisplay();
         }
         
         /**
@@ -146,7 +134,7 @@ public class UserInterface
          */
         private void redisplay()
         {
-            display.setText( "" + calc.getDisplayValue() );
+//            display.setText( "" + calc.getDisplayValue() );
         }
         
         /**
@@ -155,15 +143,15 @@ public class UserInterface
          */
         private void showInfo()
         {
-            if( showingAuthor )
-            {
-                status.setText( calc.getVersion() );
-            }
-            else
-            {
-                status.setText( calc.getAuthor() );
-            }
-            
-            showingAuthor = !showingAuthor;
+//            if( showingAuthor )
+//            {
+//                status.setText( calc.getVersion() );
+//            }
+//            else
+//            {
+//                status.setText( calc.getAuthor() );
+//            }
+//            
+//            showingAuthor = !showingAuthor;
         }
 }
