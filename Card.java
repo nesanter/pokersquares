@@ -1,6 +1,12 @@
 import java.util.Arrays;
 import java.util.HashMap;
 
+import java.io.File;
+import java.io.IOException;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 /**
  * Card - Simple playing card class.
  * @author Todd W. Neller
@@ -27,6 +33,8 @@ public class Card {
 
     private int rank, suit;
 
+    private BufferedImage pic;
+
     /**
      * Create a card with the given rank and suit.
      * @param rank Card rank. Should be in range [0, NUM_RANKS - 1].
@@ -35,6 +43,17 @@ public class Card {
     public Card(int rank, int suit) {
         this.rank = rank;
         this.suit = suit;
+
+        try {
+            File f = new File("pics" + File.separator + rankNames[rank] + suitNames[suit] + ".png");
+            pic = ImageIO.read(f);
+        } catch (IOException e) {
+            System.out.println("cannot open pic");
+        }
+    }
+
+    public BufferedImage getPicture() {
+        return pic;
     }
 
     /**
