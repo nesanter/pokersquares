@@ -4,7 +4,8 @@
  * Authors: Noah Santer (nesanter@knox.edu), Sam Hart (swhart@knox.edu)
  */
 
-public interface PokerSquaresView {
+public interface PokerSquaresView
+{
     /**
      * Inform a player that he is out of time
      */
@@ -16,7 +17,7 @@ public interface PokerSquaresView {
     void updateDisplay();
     void displayWin();
     void displayLoss();
-    void displayIllegalMove(int[] play);
-    void displayNextCard(Card card);
+    void displayIllegalMove( int[] play );
+    void displayNextCard( Card card );
     void GiveModelReference( PokerSquaresModel model );
 }

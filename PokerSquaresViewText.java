@@ -6,61 +6,74 @@
 
 import java.util.Arrays;
 
-public class PokerSquaresViewText implements PokerSquaresView {
-    private PokerSquaresModel model;
-
-    public PokerSquaresViewText() {
-    }
-
-    @Override
-    public void GiveModelReference( PokerSquaresModel model )
-    {
-        this.model = model;
-    }
-
-    @Override
-    public void displayOutOfTime() {
-        System.err.println("Player Out of Time");
-    }
-
-    @Override
-    public void updateDisplay() {
-        Card[][] grid = model.getGrid();
-
-        // print grid
-        for (int row = 0; row < model.getSize(); row++) {
-            for (int col = 0; col < model.getSize(); col++) {
-                System.out.printf(" %s ",
-                        grid[row][col] == null ? "--" : grid[row][col].toString());
-            }
-            System.out.printf("%3d\n", model.getScoreByRow(row));
-        }
-
-        for (int col = 0; col < model.getSize(); col++) 
-            System.out.printf("%3d ", model.getScoreByCol(col));
-
-        System.out.printf("%3d Total\n", model.getTotalScore());
-
-        System.out.println();
-    }
-
-    @Override
-    public void displayIllegalMove(int[] play) {
-        System.err.printf("Illegal play: %s\n", Arrays.toString(play));
-    }
-
-    @Override
-    public void displayWin() {
+public class PokerSquaresViewText implements PokerSquaresView
+{
+        private PokerSquaresModel model;
         
-    }
-
-    @Override
-    public void displayLoss() {
-
-    }
-
-    @Override
-    public void displayNextCard(Card card) {
-        System.out.printf("Next card is %s\n", card);
-    }
+        public PokerSquaresViewText()
+        {
+        }
+        
+        @Override
+        public void GiveModelReference( PokerSquaresModel model )
+        {
+            this.model = model;
+        }
+        
+        @Override
+        public void displayOutOfTime()
+        {
+            System.err.println( "Player Out of Time" );
+        }
+        
+        @Override
+        public void updateDisplay()
+        {
+            Card[][] grid = model.getGrid();
+            
+            // print grid
+            for( int row = 0; row < model.getSize(); row++ )
+            {
+                for( int col = 0; col < model.getSize(); col++ )
+                {
+                    System.out.printf( " %s ",
+                                       grid[row][col] == null ? "--" : grid[row][col].toString() );
+                }
+                
+                System.out.printf( "%3d\n", model.getScoreByRow( row ) );
+            }
+            
+            for( int col = 0; col < model.getSize(); col++ )
+            {
+                System.out.printf( "%3d ", model.getScoreByCol( col ) );
+            }
+            
+            System.out.printf( "%3d Total\n", model.getTotalScore() );
+            
+            System.out.println();
+        }
+        
+        @Override
+        public void displayIllegalMove( int[] play )
+        {
+            System.err.printf( "Illegal play: %s\n", Arrays.toString( play ) );
+        }
+        
+        @Override
+        public void displayWin()
+        {
+        
+        }
+        
+        @Override
+        public void displayLoss()
+        {
+        
+        }
+        
+        @Override
+        public void displayNextCard( Card card )
+        {
+            System.out.printf( "Next card is %s\n", card );
+        }
 }

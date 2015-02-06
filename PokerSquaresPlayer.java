@@ -3,12 +3,13 @@
  * PokerSquaresPlayer - a simple player interface for PokerSquares.
  * Author: Todd W. Neller
  */
-public interface PokerSquaresPlayer {
+public interface PokerSquaresPlayer
+{
     /**
      * init - initializes the player before each game
      */
     public void init();
-
+    
     /**
      * getPlay - gets the current play position for a given card
      * within the allotted number of milliseconds.
@@ -22,5 +23,5 @@ public interface PokerSquaresPlayer {
      * @return a 2D int array with the chosen (row, col) position
      * for play of the given card.
      */
-    public int[] getPlay(Card card, long millisRemaining);
+    public int[] getPlay( Card card, long millisRemaining );
 }
