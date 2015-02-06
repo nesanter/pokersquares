@@ -24,12 +24,12 @@ public class PokerSquares
                     break;
                     
                 case 1:
-                    ps = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresViewText() );
+                    ps = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresViewGUI() );
                     ps.playSequence( 5, 0, false );
                     break;
                     
                 case 2:
-                    ps = new PokerSquaresModel( new FlushPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresViewText() );
+                    ps = new PokerSquaresModel( new FlushPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresViewGUI() );
                     ps.playSequence( 5, 0, false );
                     break;
                     

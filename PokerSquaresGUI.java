@@ -11,9 +11,10 @@ import javax.swing.border.*;
  * @author David J. Barnes and Michael Kolling
  * @version 31 July 2000
  */
-public class UserInterface
-    implements ActionListener
+public class PokerSquaresViewGUI
+    implements ActionListener, PokerSquaresView
 {
+        private PokerSquaresModel model;
         private boolean showingAuthor;
         
         private JFrame frame;
@@ -23,7 +24,7 @@ public class UserInterface
         /**
          * Create a user interface for a given calcEngine.
          */
-        public UserInterface()
+        public PokerSquaresViewGUI()
         {
             makeFrame();
             frame.setVisible( true );
@@ -153,5 +154,41 @@ public class UserInterface
 //            }
 //            
 //            showingAuthor = !showingAuthor;
+        }
+
+        @Override
+        public void displayOutOfTime()
+        {
+        }
+
+        @Override
+        public void updateDisplay()
+        {
+        }
+
+        @Override
+        public void displayWin()
+        {
+        }
+
+        @Override
+        public void displayLoss()
+        {
+        }
+
+        @Override
+        public void displayIllegalMove( int[] play )
+        {
+        }
+
+        @Override
+        public void displayNextCard( Card card )
+        {
+        }
+
+        @Override
+        public void GiveModelReference( PokerSquaresModel model )
+        {
+            this.model = model;
         }
 }
