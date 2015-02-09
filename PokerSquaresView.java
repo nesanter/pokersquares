@@ -14,10 +14,11 @@ public interface PokerSquaresView
     // displays that array somehow
     //
     void displayOutOfTime();
-    void updateDisplay();
+    void updateDisplay( Card[][] grid );
     void displayWin();
     void displayLoss();
     void displayIllegalMove( int[] play );
     void displayNextCard( Card card );
     void GiveModelReference( PokerSquaresModel model );
+    void setController( PokerSquaresController controller );
 }

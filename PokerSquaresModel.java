@@ -61,9 +61,7 @@ that will be useful for coding good players.
 
 public class PokerSquaresModel
 {
-
         private PokerSquaresView view;
-        
         public static final int SIZE = 5; // square grid size
         // 2013 contest maximum milliseconds per game
         public static final long GAME_MILLIS = 60000L;
@@ -82,12 +80,12 @@ public class PokerSquaresModel
          * @param player Poker Squares player object
          * @param gameMillis maximum milliseconds permitted for game
          */
-        public PokerSquaresModel( PokerSquaresPlayer player, long gameMillis, PokerSquaresView view )
+        public PokerSquaresModel( PokerSquaresPlayer player, long gameMillis /*,PokerSquaresView view*/ )
         {
             this.player = player;
             this.gameMillis = gameMillis;
-            this.view = view;
-            this.view.GiveModelReference( this );
+            //this.view = view;
+            //this.view.GiveModelReference( this );
         }
         
         /**
@@ -124,7 +122,7 @@ public class PokerSquaresModel
             {
                 /* deal the next card */
                 Card card = deck.pop();
-                view.displayNextCard( card );
+                //view.displayNextCard( card );
                 
                 long startTime = System.currentTimeMillis();
                 int[] play = player.getPlay( card, millisRemaining );
@@ -132,7 +130,7 @@ public class PokerSquaresModel
                 
                 if( millisRemaining < 0 )  // times out
                 {
-                    view.displayOutOfTime();
+                    //view.displayOutOfTime();
                     return 0;
                 }
                 
@@ -140,17 +138,14 @@ public class PokerSquaresModel
                     || play[1] < 0 || play[1] >= SIZE
                     || grid[play[0]][play[1]] != null )  // illegal play
                 {
-                    view.displayIllegalMove( play );
+                    //view.displayIllegalMove( play );
                     return 0;
                 }
                 
                 grid[play[0]][play[1]] = card;
                 cardsPlaced++;
                 
-                if( verbose )
-                {
-                    view.updateDisplay();
-                }
+                //view.updateDisplay();
             }
             
             return getScore( grid );
@@ -499,7 +494,7 @@ public class PokerSquaresModel
                     grid[row][col] = Card.cardMap.get( testGrid[row][col] );
                 }
                 
-            view.updateDisplay();
+            //view.updateDisplay();
         }
 }
 

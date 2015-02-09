@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
 public class PokerSquares
 {
@@ -16,7 +20,9 @@ public class PokerSquares
             System.out.println( "    1 - Random Player" );
             System.out.println( "    2 - Flush Player" );
             
-            PokerSquaresModel ps;
+            PokerSquaresModel model;
+            PokerSquaresView view;
+            PokerSquaresController controller;
             
             switch( s.nextInt() )
             {
@@ -24,13 +30,21 @@ public class PokerSquares
                     break;
                     
                 case 1:
-                    ps = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresViewGUI() );
-                    ps.playSequence( 5, 0, false );
+                    //ps = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresGUI() );
+                    model = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS );
+                    view = new PokerSquaresGUI();
+                    controller = new PokerSquaresController( model, view );
+                    view.GiveModelReference( model );
+                    view.setController( controller );
                     break;
                     
                 case 2:
-                    ps = new PokerSquaresModel( new FlushPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresViewGUI() );
-                    ps.playSequence( 5, 0, false );
+                    //ps = new PokerSquaresModel( new FlushPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresGUI() );
+                    model = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS );
+                    view = new PokerSquaresGUI();
+                    controller = new PokerSquaresController( model, view );
+                    view.GiveModelReference( model );
+                    view.setController( controller );
                     break;
                     
                 default:

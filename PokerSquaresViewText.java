@@ -27,14 +27,14 @@ public class PokerSquaresViewText implements PokerSquaresView
         }
         
         @Override
-        public void updateDisplay()
+        public void updateDisplay( Card[][] grid )
         {
-            Card[][] grid = model.getGrid();
+            //Card[][] grid = model.getGrid();
             
             // print grid
-            for( int row = 0; row < model.getSize(); row++ )
+            for( int row = 0; row < 5; row++ )
             {
-                for( int col = 0; col < model.getSize(); col++ )
+                for( int col = 0; col < 5; col++ )
                 {
                     System.out.printf( " %s ",
                                        grid[row][col] == null ? "--" : grid[row][col].toString() );
@@ -43,7 +43,7 @@ public class PokerSquaresViewText implements PokerSquaresView
                 System.out.printf( "%3d\n", model.getScoreByRow( row ) );
             }
             
-            for( int col = 0; col < model.getSize(); col++ )
+            for( int col = 0; col < 5; col++ )
             {
                 System.out.printf( "%3d ", model.getScoreByCol( col ) );
             }
@@ -75,5 +75,10 @@ public class PokerSquaresViewText implements PokerSquaresView
         public void displayNextCard( Card card )
         {
             System.out.printf( "Next card is %s\n", card );
+        }
+
+        @Override
+        public void setController( PokerSquaresController controller )
+        {
         }
 }

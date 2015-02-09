@@ -11,23 +11,47 @@ import javax.swing.border.*;
  * @author David J. Barnes and Michael Kolling
  * @version 31 July 2000
  */
-public class PokerSquaresViewGUI
-    implements ActionListener, PokerSquaresView
+public class PokerSquaresGUI
+    implements PokerSquaresView
 {
-        private PokerSquaresModel model;
         private boolean showingAuthor;
+
+        private CardPanel[][] cards;
         
         private JFrame frame;
-//        private JTextField display;
-//        private JLabel status;
+        //        private JTextField display;
+        private JLabel status;
+
+        private JPanel cardsPane;
+
+        private PokerSquaresController controller;
         
         /**
          * Create a user interface for a given calcEngine.
          */
-        public PokerSquaresViewGUI()
+        public PokerSquaresGUI()
         {
+            cards = new CardPanel[ 5 ][ 5 ];
             makeFrame();
             frame.setVisible( true );
+            this.controller = controller;
+        }
+
+        @Override
+        public void setController( PokerSquaresController controller )
+        {
+            this.controller = controller;
+
+            JPanel contentPane = ( JPanel )frame.getContentPane();
+            //JPanel buttonPanel = new JPanel( new GridLayout( 1, 5 ) );
+            
+            //addButton( buttonPanel, "start" );
+            //addButton( buttonPanel, "new game" );
+            
+            //contentPane.add( buttonPanel, BorderLayout.NORTH );
+            contentPane.add( controller, BorderLayout.NORTH );
+
+            frame.pack();
         }
         
         /**
@@ -49,138 +73,87 @@ public class PokerSquaresViewGUI
             JPanel contentPane = ( JPanel )frame.getContentPane();
             contentPane.setLayout( new BorderLayout( 8, 8 ) );
             contentPane.setBorder( new EmptyBorder( 10, 10, 10, 10 ) );
+
+            //JPanel buttonPanel = new JPanel( new GridLayout( 1, 5 ) );
+            
+            //addButton( buttonPanel, "start" );
+            //addButton( buttonPanel, "new game" );
+            
+            //contentPane.add( buttonPanel, BorderLayout.NORTH );
+            //contentPane.add( controller, BorderLayout.NORTH );
             
             JPanel cardPanel = new JPanel( new GridLayout( 5, 5 ) );
-
+            
             // did two loops just because
             for( int i = 0; i < 5; i++ )
             {
                 for( int j = 0; j < 5; j++ )
                 {
-                    cardPanel.add( new JPanel() );
+                    CardPanel p = new CardPanel();
+                    p.setVisible( true );
+                    p.setCard( Card.allCards[ 0 ] );
+                    // fuck it, we're ace of clubs now.
+                    cards[ i ][ j ] = p;
+                    cardPanel.add( p );
                 }
             }
+
+            cardsPane = cardPanel;
             
             contentPane.add( cardPanel, BorderLayout.CENTER );
-
-            JPanel buttonPanel = new JPanel( new GridLayout( 5, 1 ) );
-
-            contentPane.add( buttonPanel, BorderLayout.SOUTH );
             
-//            status = new JLabel( calc.getAuthor() );
-//            contentPane.add( status, BorderLayout.SOUTH );
+            status = new JLabel( "Poker Squares is Great!" );
+            contentPane.add( status, BorderLayout.SOUTH );
             
             frame.pack();
-        }
-        
-        /**
-         * Add a button to the button panel.
-         */
-        private void addButton( Container panel, String buttonText )
-        {
-            JButton button = new JButton( buttonText );
-            button.addActionListener( this );
-            panel.add( button );
         }
         
         /**
          * An interface action has been performed. Find out what it was and
          * handle it.
          */
-        public void actionPerformed( ActionEvent event )
-        {
-//            String command = event.getActionCommand();
-//            
-//            if( command.equals( "0" ) ||
-//                command.equals( "1" ) ||
-//                command.equals( "2" ) ||
-//                command.equals( "3" ) ||
-//                command.equals( "4" ) ||
-//                command.equals( "5" ) ||
-//                command.equals( "6" ) ||
-//                command.equals( "7" ) ||
-//                command.equals( "8" ) ||
-//                command.equals( "9" ) )
-//            {
-//                int number = Integer.parseInt( command );
-//                calc.numberPressed( number );
-//            }
-//            else if( command.equals( "+" ) )
-//            {
-//                calc.plus();
-//            }
-//            else if( command.equals( "-" ) )
-//            {
-//                calc.minus();
-//            }
-//            else if( command.equals( "=" ) )
-//            {
-//                calc.equals();
-//            }
-//            else if( command.equals( "C" ) )
-//            {
-//                calc.clear();
-//            }
-//            else if( command.equals( "?" ) )
-//            {
-//                showInfo();
-//            }
-//            
-//            redisplay();
-        }
         
-        /**
-         * Update the interface display to show the current value of the
-         * calculator.
-         */
-        private void redisplay()
-        {
-//            display.setText( "" + calc.getDisplayValue() );
-        }
-        
-        /**
-         * Toggle the info display in the calculator's status area between the
-         * author and version information.
-         */
-        private void showInfo()
-        {
-//            if( showingAuthor )
-//            {
-//                status.setText( calc.getVersion() );
-//            }
-//            else
-//            {
-//                status.setText( calc.getAuthor() );
-//            }
-//            
-//            showingAuthor = !showingAuthor;
-        }
-
         @Override
         public void displayOutOfTime()
         {
+            status.setText( "Out of time!" );
         }
-
+        
         @Override
-        public void updateDisplay()
+        public void updateDisplay( Card[][] crds )
         {
-        }
+            //Card[][] crds = this.model.getGrid();
 
+            for( int i = 0; i < 5; i++ )
+            {
+                for( int j = 0; j < 5; j++ )
+                {
+                    this.cards[ i ][ j ].setCard( crds[ i ][ j ] );
+                }
+            }
+
+            cardsPane.repaint();
+            JPanel contentPane = ( JPanel )frame.getContentPane();
+            contentPane.doLayout();
+        }
+        
         @Override
         public void displayWin()
         {
+            status.setText( "WIN!" );
         }
-
+        
         @Override
         public void displayLoss()
         {
+            status.setText( "LOSE!" );
         }
-
+        
         @Override
         public void displayIllegalMove( int[] play )
         {
         }
-
+        
         @Override
         public void displayNextCard( Card card )
         {
@@ -189,6 +162,5 @@ public class PokerSquaresViewGUI
         @Override
         public void GiveModelReference( PokerSquaresModel model )
         {
-            this.model = model;
         }
 }
