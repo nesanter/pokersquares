@@ -60,4 +60,9 @@ public class LivePokerSquaresPlayer implements PokerSquaresPlayer
 
         return play;
     }
+
+    @Override
+    public CardPane getCardsPane() {
+        return pane;
+    }
 }
