@@ -11,9 +11,26 @@ public class LivePokerSquaresPlayer implements PokerSquaresPlayer
 
     private int last_x, last_y;
 
+    private CardPane pane;
+
+    public LivePokerSquaresPlayer() {
+        pane = new CardPane();
+
+        CardButton[][] buttons = pane.getCards();
+
+        for ( int row = 0; row < SIZE; row++ ) {
+            for( int col = 0; col < SIZE; col++ )
+            {
+                listeners[row][col] = new PokerSquaresCardButtonListener(row,col,this);
+                buttons[row][col].addListener(listeners[row][col]);
+            }
+        }
+    }
+
     @Override
     public void init()
     {
+
         for( int row = 0; row < SIZE; row++ )
             for( int col = 0; col < SIZE; col++ )
             {
@@ -25,7 +42,8 @@ public class LivePokerSquaresPlayer implements PokerSquaresPlayer
 
     @Override
     public void listenerCallback(int x, int y) {
-
+        last_x = x;
+        last_y = y;
     }
 
     @Override
