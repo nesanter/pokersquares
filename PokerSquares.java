@@ -23,6 +23,9 @@ public class PokerSquares
             PokerSquaresModel model;
             PokerSquaresView view;
             PokerSquaresController controller;
+
+            LivePokerSquaresPlayer lp;
+            PokerSquaresGUI gui;
             
             switch( s.nextInt() )
             {
@@ -31,8 +34,11 @@ public class PokerSquares
                     
                 case 1:
                     //ps = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresGUI() );
-                    model = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS );
-                    view = new PokerSquaresGUI();
+                    lp = new LivePokerSquaresPlayer();
+                    model = new PokerSquaresModel( lp, PokerSquaresModel.GAME_MILLIS );
+                    gui = new PokerSquaresGUI();
+                    gui.setCardPane( lp.getCardsPane() );
+                    view = gui;
                     controller = new PokerSquaresController( model, view );
                     view.GiveModelReference( model );
                     view.setController( controller );
@@ -40,8 +46,11 @@ public class PokerSquares
                     
                 case 2:
                     //ps = new PokerSquaresModel( new FlushPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS, new PokerSquaresGUI() );
-                    model = new PokerSquaresModel( new RandomPokerSquaresPlayer(), PokerSquaresModel.GAME_MILLIS );
-                    view = new PokerSquaresGUI();
+                    lp = new LivePokerSquaresPlayer();
+                    model = new PokerSquaresModel( lp, PokerSquaresModel.GAME_MILLIS );
+                    gui = new PokerSquaresGUI();
+                    gui.setCardPane( lp.getCardsPane() );
+                    view = gui;
                     controller = new PokerSquaresController( model, view );
                     view.GiveModelReference( model );
                     view.setController( controller );
