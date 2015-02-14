@@ -24,4 +24,6 @@ public interface PokerSquaresPlayer
      * for play of the given card.
      */
     public int[] getPlay( Card card, long millisRemaining );
+
+    public void listenerCallback(int x, int y);
 }
