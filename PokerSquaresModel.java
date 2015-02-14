@@ -125,7 +125,20 @@ public class PokerSquaresModel
                 //view.displayNextCard( card );
                 
                 long startTime = System.currentTimeMillis();
-                int[] play = player.getPlay( card, millisRemaining );
+                int[] play;
+
+                while (true) {
+                    play = player.getPlay( card, millisRemaining );
+
+                    if (!(play.length == 2 && play[0] == -1 && play[1] == -1))
+                        break;
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException ie) {
+                        continue;
+                    }
+                }
+
                 millisRemaining -= System.currentTimeMillis() - startTime;
                 
                 if( millisRemaining < 0 )  // times out
