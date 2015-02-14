@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class CardPanel extends JPanel
 {
-        private Card myCard;
+        protected Card myCard;
 
         Dimension size = new Dimension();
         
