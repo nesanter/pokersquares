@@ -39,7 +39,7 @@ public class CardPane
             // push cardsPane = cardPanel;
         }
 
-        void CardButton[][] getCards()
+        public CardButton[][] getCards()
         {
             return cards;
         }
