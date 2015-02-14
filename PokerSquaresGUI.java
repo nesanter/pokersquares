@@ -16,22 +16,14 @@ public class PokerSquaresGUI
 {
         private boolean showingAuthor;
 
-        private CardPanel[][] cards;
-        
         private JFrame frame;
-        //        private JTextField display;
         private JLabel status;
-
-        private JPanel cardsPane;
+        private CardPane cardsPane;
 
         private PokerSquaresController controller;
         
-        /**
-         * Create a user interface for a given calcEngine.
-         */
         public PokerSquaresGUI()
         {
-            cards = new CardPanel[ 5 ][ 5 ];
             makeFrame();
             frame.setVisible( true );
             this.controller = controller;
@@ -43,12 +35,6 @@ public class PokerSquaresGUI
             this.controller = controller;
 
             JPanel contentPane = ( JPanel )frame.getContentPane();
-            //JPanel buttonPanel = new JPanel( new GridLayout( 1, 5 ) );
-            
-            //addButton( buttonPanel, "start" );
-            //addButton( buttonPanel, "new game" );
-            
-            //contentPane.add( buttonPanel, BorderLayout.NORTH );
             contentPane.add( controller, BorderLayout.NORTH );
 
             frame.pack();
@@ -73,46 +59,20 @@ public class PokerSquaresGUI
             JPanel contentPane = ( JPanel )frame.getContentPane();
             contentPane.setLayout( new BorderLayout( 8, 8 ) );
             contentPane.setBorder( new EmptyBorder( 10, 10, 10, 10 ) );
-
-            //JPanel buttonPanel = new JPanel( new GridLayout( 1, 5 ) );
-            
-            //addButton( buttonPanel, "start" );
-            //addButton( buttonPanel, "new game" );
-            
-            //contentPane.add( buttonPanel, BorderLayout.NORTH );
-            //contentPane.add( controller, BorderLayout.NORTH );
-            
-            JPanel cardPanel = new JPanel( new GridLayout( 5, 5 ) );
-            
-            // did two loops just because
-            for( int i = 0; i < 5; i++ )
-            {
-                for( int j = 0; j < 5; j++ )
-                {
-                    CardButton p = new CardButton();
-                    p.setVisible( true );
-                    p.setCard( Card.allCards[ 0 ] );
-                    // fuck it, we're ace of clubs now.
-                    cards[ i ][ j ] = p;
-                    cardPanel.add( p );
-                }
-            }
-
-            cardsPane = cardPanel;
-
-            
-            contentPane.add( cardPanel, BorderLayout.CENTER );
             
             status = new JLabel( "Poker Squares is Great!" );
             contentPane.add( status, BorderLayout.SOUTH );
             
             frame.pack();
         }
-        
-        /**
-         * An interface action has been performed. Find out what it was and
-         * handle it.
-         */
+
+        public void setCardPane( CardPane pane )
+        {
+            JPanel contentPane = ( JPanel )frame.getContentPane();
+            cardsPane = pane;
+            contentPane.add( pane, BorderLayout.CENTER );
+            frame.pack();
+        }
         
         @Override
         public void displayOutOfTime()
@@ -129,7 +89,7 @@ public class PokerSquaresGUI
             {
                 for( int j = 0; j < 5; j++ )
                 {
-                    this.cards[ i ][ j ].setCard( crds[ i ][ j ] );
+                    cardsPane.setCard( crds[ i ][ j ], i, j );
                 }
             }
 
