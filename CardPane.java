@@ -14,11 +14,11 @@ import javax.swing.border.*;
 public class CardPane
     extends JPanel
 {
-        private CardPanel[][] cards;
+        private CardButton[][] cards;
         
         public CardPane()
         {
-            cards = new CardPanel[ 5 ][ 5 ];
+            cards = new CardButton[ 5 ][ 5 ];
 
             setLayout( new GridLayout( 5, 5 ) );
             
@@ -37,6 +37,11 @@ public class CardPane
             }
 
             // push cardsPane = cardPanel;
+        }
+
+        void CardButton[][] getCards()
+        {
+            return cards;
         }
 
         void setCard( Card c, int x, int y )

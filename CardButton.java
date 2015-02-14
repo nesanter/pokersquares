@@ -23,6 +23,11 @@ public class CardButton extends CardPanel
             this.x = x;
             this.y = y;
         }
+
+        void addListener( ActionListener l )
+        {
+            button.addActionListener( l );
+        }
         
         @Override
         public void setCard( Card c )
