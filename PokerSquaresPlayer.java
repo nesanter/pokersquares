@@ -26,6 +26,4 @@ public interface PokerSquaresPlayer
     public int[] getPlay( Card card, long millisRemaining );
 
     public void listenerCallback(int x, int y);
-
-    public PokerSquaresCardButtonListener[][] getListenerArray();
 }
