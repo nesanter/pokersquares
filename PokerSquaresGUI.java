@@ -89,7 +89,7 @@ public class PokerSquaresGUI
             {
                 for( int j = 0; j < 5; j++ )
                 {
-                    CardPanel p = new CardPanel();
+                    CardButton p = new CardButton();
                     p.setVisible( true );
                     p.setCard( Card.allCards[ 0 ] );
                     // fuck it, we're ace of clubs now.
@@ -99,6 +99,7 @@ public class PokerSquaresGUI
             }
 
             cardsPane = cardPanel;
+
             
             contentPane.add( cardPanel, BorderLayout.CENTER );
             
